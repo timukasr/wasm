@@ -1,13 +1,13 @@
-importScripts("./lkh.js");
+const lkh = require("../lkh/lkh.js");
 
-async function getPath(circles) {
-  const instance = await Module({
+module.exports = async function (circles) {
+  const instance = await lkh({
     arguments: ["input.txt"],
     preRun(instance) {
       instance.FS.writeFile(
         "input.txt",
         `PROBLEM_FILE = problem.txt
-RUNS=1
+RUNS=100
 TOUR_FILE=tour.txt
 `,
       );
@@ -36,12 +36,4 @@ EOF
     .split("\n")
     .slice(6, -3)
     .map(x => parseInt(x, 10) - 1);
-}
-
-addEventListener("message", e => {
-  if (e.data.type === "getPath") {
-    getPath(e.data.circles).then(path => {
-      postMessage({ type: "path", id: e.data.id, path });
-    });
-  }
-});
+};

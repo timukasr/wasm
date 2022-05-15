@@ -77,7 +77,7 @@ all:
 	$(MAKE) LKH
 
 LKH: $(OBJ) $(DEPS)
-	$(CC) -o ../LKH $(OBJ) $(CFLAGS) -lm -o ../../lkh.js -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORTED_RUNTIME_METHODS='["FS", "callMain"]'
+	$(CC) -o ../LKH $(OBJ) $(CFLAGS) -lm -o ../../lkh.js -s MODULARIZE=1 -s EXPORTED_RUNTIME_METHODS='["FS", "callMain"]'
 
 clean:
 	/bin/rm -f $(ODIR)/*.o ../LKH *~ ._* $(IDIR)/*~ $(IDIR)/._* 

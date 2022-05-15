@@ -5,7 +5,8 @@
   "author": "Timmu",
   "license": "MIT",
   "scripts": {
-    "start": "yarn live-server"
+    "start": "yarn live-server",
+    "lkh": "node node/index.js"
   },
   "devDependencies": {
     "live-server": "^1.2.2",

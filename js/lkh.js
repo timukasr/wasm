@@ -1,4 +1,4 @@
-const worker = new Worker("../lkh/worker.js", { type: "module" });
+const worker = new Worker("../lkh/worker.js");
 
 let nextId = 0;
 

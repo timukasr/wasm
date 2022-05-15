@@ -12,7 +12,6 @@ setInterval(() => {
   prev = now;
 
   if (diff > allowedDrift) {
-    console.log(`Main thread was blocked for ${diff}ms (${Math.round(diff/checkInterval)} ticks)`);
+    console.log(`Main thread was blocked for ${diff}ms (${Math.round(diff / checkInterval)} ticks)`);
   }
-
 }, checkInterval);
