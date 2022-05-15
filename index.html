@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Test</title>
 
-    <link rel="stylesheet" href="js/loader.css">
+    <link rel="stylesheet" href="js/loader.css" />
 
     <!-- load emscripten library -->
     <script src="wasm/a.out.js"></script>
@@ -16,21 +16,21 @@
     <script src="js/main.js"></script>
 
     <script src="js/blockDetector.js"></script>
-</head>
-<body>
-<h1>Fibonacci Wasm test</h1>
-<p>Result in console</p>
-<label>Number: <input type="number" id="n" value="40"></label>
-<br/>
-<br/>
-<button onclick="runJs()">Run Javascript</button>
-<br/>
-<br/>
-<button id="wasm" onclick="runWasm()" disabled>Run WebAssembly</button>
-<br/>
-<br/>
-<button id="wasm-worker" onclick="runWasmWorker()" disabled>Run WebAssembly WebWorker</button>
-<div class="loader">Loading...</div>
-<script src="js/loader.js"></script>
-</body>
+  </head>
+  <body>
+    <h1>Fibonacci Wasm test</h1>
+    <p>Result in console</p>
+    <label>Number: <input type="number" id="n" value="40" /></label>
+    <br />
+    <br />
+    <button onclick="runJs()">Run Javascript</button>
+    <br />
+    <br />
+    <button id="wasm" onclick="runWasm()" disabled>Run WebAssembly</button>
+    <br />
+    <br />
+    <button id="wasm-worker" onclick="runWasmWorker()" disabled>Run WebAssembly WebWorker</button>
+    <div class="loader">Loading...</div>
+    <script src="js/loader.js"></script>
+  </body>
 </html>

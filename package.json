@@ -8,6 +8,7 @@
     "start": "yarn live-server"
   },
   "devDependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "prettier": "2.6.2"
   }
 }

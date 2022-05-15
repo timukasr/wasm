@@ -33,3 +33,36 @@ or
 * a.out.wasm - WebAssembly binary
 * a.out.js - JavaScript file that calls the WebAssembly binary
 
+## LKH example
+
+LKH is an effective implementation of the Lin-Kernighan heuristic for solving the traveling salesman problem.
+
+[More info](http://webhotel4.ruc.dk/~keld/research/LKH-3/)
+
+LKH is CLI-based. Input/output is controlled via file system files and it is run using main function. This adds some complexity to using it in Emscripten.
+
+Setup (already done):
+
+* Download [LKH-3.0.7.tgz](http://webhotel4.ruc.dk/~keld/research/LKH-3/LKH-3.0.7.tgz)
+* Extract dot `lkh/src`
+* Add following flags to `LKH` command in `lkh/src/SRC/Makefile`:
+  `-o ../../lkh.js -s WASM=1 -s EXPORTED_RUNTIME_METHODS='["FS", "callMain"]'`
+  * `-o ../../lkh.js`: output file
+  * `-s WASM=1`: Use Wasm instead of asm.js
+  * `-s EXPORTED_RUNTIME_METHODS='["FS", "callMain"]'`
+    * FS - add file system support
+    * callMain - allow calling main function
+
+### Compile WebAssembly
+
+`docker run --rm -v ${pwd}/lkh:/src trzeci/emscripten /bin/bash -c "cd src; configure .configure; emmake make"`
+
+### Outputs:
+
+* lkh.wasm - WebAssembly binary
+* lkh.js - JavaScript file that calls the WebAssembly binary
+
+
+# General
+
+Settings: https://github.com/emscripten-core/emscripten/blob/main/src/settings.js

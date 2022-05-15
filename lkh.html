@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+
+    <link rel="stylesheet" href="js/canvas.css">
+
+    <!-- load emscripten library -->
+    <script src="js/lkh.js"></script>
+<!--    <script>-->
+<!--    var Module = {-->
+<!--        arguments: ["problem2.par"],-->
+<!--        preRun: [],-->
+<!--        postRun: [function () {-->
+<!--          console.log(FS.readFile("tour.txt", {encoding: "utf8"}))-->
+<!--        }],-->
+<!--        onRuntimeInitialized() {-->
+<!--          FS.writeFile("problem2.par", `PROBLEM_FILE = test.tsp-->
+<!--RUNS = 1-->
+<!--TOUR_FILE=tour.txt-->
+<!--`)-->
+
+<!--          console.log("rtere", FS)-->
+<!--        },-->
+<!--      }-->
+<!--    </script>-->
+<!--    <script src="lkh/lkh.js"></script>-->
+
+</head>
+<body>
+<h1>Travelling salesman Wasm test</h1>
+<canvas id="canvas" width="500" height="500"></canvas>
+<div id="path"></div>
+<div>
+    <button id="reset">Reset</button>
+</div>
+<script src="js/canvas.js"></script>
+</body>
+</html>
