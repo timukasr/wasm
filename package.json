@@ -1,0 +1,13 @@
+{
+  "name": "wasm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Timmu",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn live-server"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
