@@ -1,5 +1,10 @@
 # Quick intro into WebAssembly and Emscripten
 
+## Run
+
+* `yarn start`
+* Open: `http://localhost:8080/index.html`
+
 ## Setup Emscripten
 
 Option 1: [Download and install Emscripten](https://emscripten.org/docs/getting_started/downloads.html)
@@ -15,28 +20,25 @@ Option 2: [Docker image](https://hub.docker.com/r/trzeci/emscripten/)
 
 ### Compile WebAssembly
 
-`emcc -O3 -s WASM=1 -s EXTRA_EXPORTED_RUNTIME_METHODS=["cwrap"] -s BUILD_AS_WORKER=1 fib.c`
+```shell
+emcc -O3 -s WASM=1 -s EXPORTED_RUNTIME_METHODS=["cwrap"] -s BUILD_AS_WORKER=1 -s MINIFY_HTML=0 wasm/fib.c -o wasm/fib.wasm.js
+```
 
 or
 
-`docker run --rm -v ${pwd}/wasm:/src trzeci/emscripten emcc -O3 -s WASM=1 -s EXTRA_EXPORTED_RUNTIME_METHODS=["cwrap"] fib.c`
-
-()
+```shell
+docker run --rm -v ${pwd}/wasm:/src trzeci/emscripten emcc -O3 -s WASM=1 -s EXPORTED_RUNTIME_METHODS=["cwrap"] --minify 0 fib.c -o fib.wasm.js
+```
 
 * `-O3`: Optimize aggressively
 * `-s WASM=1`: Use Wasm instead of asm.js
-* `-s EXTRA_EXPORTED_RUNTIME_METHODS=["cwrap"]`: leave the [cwrap()](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html#interacting-with-code-ccall-cwrap) function available in the JavaScript file
+* `-s EXPORTED_RUNTIME_METHODS=["cwrap"]`: leave the [cwrap()](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html#interacting-with-code-ccall-cwrap) function available in the JavaScript file
 * `fib.c` file to compile
 
 ### Outputs:
 
-* a.out.wasm - WebAssembly binary
-* a.out.js - JavaScript file that calls the WebAssembly binary
-
-### Run
-
-* `yarn start`
-* Open: `http://localhost:8080/index.html`
+* fib.wasm.wasm - WebAssembly binary
+* fib.wasm.js - JavaScript file that calls the WebAssembly binary
 
 ## LKH example
 
@@ -50,8 +52,8 @@ Setup (already done):
 
 * Download [LKH-3.0.7.tgz](http://webhotel4.ruc.dk/~keld/research/LKH-3/LKH-3.0.7.tgz)
 * Extract dot `lkh/src`
-* `lkh/src/SRC/GetTime.c`: comment in line 3: `#undef HAVE_GETRUSAGE`
-* Add following flags to `LKH` command in `lkh/src/SRC/Makefile`:
+* [](lkh/src/SRC/GetTime.c): comment in line 3: `#undef HAVE_GETRUSAGE`
+* Add following flags to `LKH` command in [](lkh/src/SRC/Makefile):
   `-o ../../lkh.js -s WASM=1 -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORTED_RUNTIME_METHODS='["FS", "callMain"]'`
   * `-o ../../lkh.js`: output file
   * `-s WASM=1`: Use Wasm instead of asm.js
@@ -63,7 +65,16 @@ Setup (already done):
 
 ### Compile WebAssembly
 
-`docker run --rm -v ${pwd}/lkh:/src trzeci/emscripten /bin/bash -c "cd src; emmake make"`
+```shell
+emmake make
+```
+
+or
+
+```shell
+docker run --rm -v ${pwd}/lkh:/src trzeci/emscripten /bin/bash -c "cd src; emmake make"
+```
+
 
 ### Outputs:
 
@@ -77,4 +88,4 @@ Setup (already done):
 
 # General
 
-Settings: https://github.com/emscripten-core/emscripten/blob/main/src/settings.js
+Settings: [](https://github.com/emscripten-core/emscripten/blob/main/src/settings.js)
