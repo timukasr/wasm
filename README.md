@@ -16,6 +16,16 @@ Option 2: [Docker image](https://hub.docker.com/r/trzeci/emscripten/)
     * `${pwd}` works on Windows PowerShell
     * `$(pwd)` works on Linux
 
+Settings: [](https://github.com/emscripten-core/emscripten/blob/main/src/settings.js)
+
+## Demo
+
+Clean compiled files:
+
+```shell
+yarn clean
+```
+
 ## Fibonacci
 
 ### Compile WebAssembly
@@ -38,7 +48,16 @@ docker run --rm -v ${pwd}/wasm:/src trzeci/emscripten emcc -O3 -s WASM=1 -s EXPO
 ### Outputs:
 
 * fib.wasm.wasm - WebAssembly binary
-* fib.wasm.js - JavaScript file that calls the WebAssembly binary
+* [](wasm/fib.wasm.js) - JavaScript file that calls the WebAssembly binary
+
+### Notable files:
+
+* [](js/fib.js) - JS implementation
+* [](wasm/fib.c) - C implementation
+* [](index.html) - Import wasm/fib.wasm.js
+* [](js/fibWasm.js) - Extract binding for wasm function
+* [](wasm/worker.js) - Worker that loads wasm/fib.wasm.js
+* [](js/fibWasmWorker.js) - Using the worker
 
 ## LKH example
 
@@ -75,17 +94,27 @@ or
 docker run --rm -v ${pwd}/lkh:/src trzeci/emscripten /bin/bash -c "cd src; emmake make"
 ```
 
-
 ### Outputs:
 
 * lkh.wasm - WebAssembly binary
-* lkh.js - JavaScript file that calls the WebAssembly binary
+* [](lkh/lkh.js) - JavaScript file that calls the WebAssembly binary
 
-### Run
+### Notable files:
 
-* `yarn start`
-* Open: `http://localhost:8080/lkh.html`
+* [](lkh/worker.js) - Worker that runs lkh wasm
+* [](js/lkh.js) - Using the worker
 
-# General
+## Node
 
-Settings: [](https://github.com/emscripten-core/emscripten/blob/main/src/settings.js)
+Run LKH with 50 nodes in synchronous mode and in worker thread.
+
+```shell
+yarn lkh
+```
+
+### Notable files
+
+* [](node/index.js) - Node.js script that runs LKH
+* [](node/lkh.js) - LKH wrapper for synchronous mode
+* [](node/lkh-node-worker.js) - LKH wrapper for worker mode
+
