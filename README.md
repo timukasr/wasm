@@ -31,18 +31,18 @@ yarn clean
 ### Compile WebAssembly
 
 ```shell
-emcc -O3 -s WASM=1 -s EXPORTED_RUNTIME_METHODS=["cwrap"] -s BUILD_AS_WORKER=1 -s MINIFY_HTML=0 wasm/fib.c -o wasm/fib.wasm.js
+emcc -O3 -s EXPORTED_RUNTIME_METHODS=["cwrap"] --minify 0 wasm/fib.c -o wasm/fib.wasm.js
 ```
 
 or
 
 ```shell
-docker run --rm -v ${pwd}/wasm:/src trzeci/emscripten emcc -O3 -s WASM=1 -s EXPORTED_RUNTIME_METHODS=["cwrap"] --minify 0 fib.c -o fib.wasm.js
+docker run --rm -v ${pwd}/wasm:/src trzeci/emscripten emcc -O3 -s EXPORTED_RUNTIME_METHODS=["cwrap"] --minify 0 fib.c -o fib.wasm.js
 ```
 
 * `-O3`: Optimize aggressively
-* `-s WASM=1`: Use Wasm instead of asm.js
 * `-s EXPORTED_RUNTIME_METHODS=["cwrap"]`: leave the [cwrap()](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html#interacting-with-code-ccall-cwrap) function available in the JavaScript file
+* `--minify 0`: disable generated JS code minification for demo
 * `fib.c` file to compile
 
 ### Outputs:
@@ -73,11 +73,9 @@ Setup (already done):
 * Extract dot `lkh/src`
 * [](lkh/src/SRC/GetTime.c): comment in line 3: `#undef HAVE_GETRUSAGE`
 * Add following flags to `LKH` command in [](lkh/src/SRC/Makefile):
-  `-o ../../lkh.js -s WASM=1 -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORTED_RUNTIME_METHODS='["FS", "callMain"]'`
+  `-o ../../lkh.js -s MODULARIZE=1 -s EXPORTED_RUNTIME_METHODS='["FS", "callMain"]'`
   * `-o ../../lkh.js`: output file
-  * `-s WASM=1`: Use Wasm instead of asm.js
-  * `-s MODULARIZE=1`: use modules instead of automatically running main function. Re-running `main` function is problematic, so for each call we initiate module again.
-  * `-s EXPORT_ES6=1`: export ES6 modules
+  * `-s MODULARIZE=1`: use modules instead of automatically running main function. Re-running `main` function is problematic, so for each call we initiate module again
   * `-s EXPORTED_RUNTIME_METHODS='["FS", "callMain"]'`
     * FS - add file system support
     * callMain - allow calling main function
